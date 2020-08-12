@@ -1,4 +1,4 @@
-export const routes = [
+export const types = [
   `Taxi`,
   `Bus`,
   `Train`,
@@ -6,7 +6,7 @@ export const routes = [
   `Transport`,
   `Drive`,
   `Flight`,
-  `Check`,
+  `Check-in`,
   `Sightseeing`,
   `Restaurant`
 ];

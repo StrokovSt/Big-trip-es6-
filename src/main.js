@@ -6,9 +6,15 @@ import TripFiltersTemplate from "./components/trip-filters-template.js";
 
 import TripSortTemplate from "./components/trip-sort-template.js";
 import TripListTemplate from "./components/trip-list-template.js";
+import TripDayTemplate from "./components/trip-day-template.js";
 import TripEventTemplate from "./components/trip-event-template.js";
 
+import {generateEvent, generateEvents} from "./mock/event-mock.js";
+const eventsList = generateEvents(5);
+console.log(eventsList);
+
 import NewEventFormTemplate from "./components/new-event-form.js";
+
 
 const contentSection = document.querySelector(`.trip-events`);
 const headerRoutSection = document.querySelector(`.trip-main`);
@@ -21,10 +27,13 @@ render(headerControlsSection, new TripFiltersTemplate().getElement(), RenderPosi
 render(contentSection, new TripSortTemplate().getElement(), RenderPosition.AFTERBEGIN);
 render(contentSection, new TripListTemplate().getElement(), RenderPosition.BEFOREEND);
 
-const eventsList = document.querySelector(`.trip-events__list`);
+const eventDay = document.querySelector(`.trip-days`);
+render(eventDay, new TripDayTemplate().getElement(), RenderPosition.BEFOREEND);
 
-render(eventsList, new TripEventTemplate().getElement(), RenderPosition.BEFOREEND);
-render(eventsList, new TripEventTemplate().getElement(), RenderPosition.BEFOREEND);
+const dayList = document.querySelector(`.trip-events__list`);
 
+eventsList.forEach((item) => {
+  render(dayList, new TripEventTemplate(item).getElement(), RenderPosition.BEFOREEND);
+});
 
-// render(contentSection, new NewEventFormTemplate().getElement(), RenderPosition.BEFOREEND);
+// render(contentSection, new NewEventFormTemplate().getElement(), RenderPosition.AFTERBEGIN);

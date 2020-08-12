@@ -38,4 +38,10 @@ const getRandomMixedArray = (array, number) => {
   return mixedArray;
 };
 
-export {getRandomIntegerNumber, getRandomArrayItem, getRandomNumbersArray, getRandomMixedArray};
+const getTimeFromMins = (mins) => {
+  let hours = Math.trunc(mins / 60);
+  let minutes = mins % 60;
+  return hours + `H ` + minutes + `M`;
+};
+
+export {getRandomIntegerNumber, getRandomArrayItem, getRandomNumbersArray, getRandomMixedArray, getTimeFromMins};
