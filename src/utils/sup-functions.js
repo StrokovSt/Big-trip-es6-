@@ -38,10 +38,19 @@ const getRandomMixedArray = (array, number) => {
   return mixedArray;
 };
 
+//  --------------------  Перевод минут в формат H M
+
 const getTimeFromMins = (mins) => {
   let hours = Math.trunc(mins / 60);
   let minutes = mins % 60;
-  return hours + `H ` + minutes + `M`;
+  const time = (hours !== 0) ? hours + `H ` + minutes + `M` : minutes + `M`;
+  return time;
 };
 
-export {getRandomIntegerNumber, getRandomArrayItem, getRandomNumbersArray, getRandomMixedArray, getTimeFromMins};
+//  --------------------  Перевод минут в формат H M
+
+const returnUniqueValues = (arr) => {
+  return Array.from(new Set(arr));
+};
+
+export {getRandomIntegerNumber, getRandomArrayItem, getRandomNumbersArray, getRandomMixedArray, getTimeFromMins, returnUniqueValues};

@@ -3,10 +3,12 @@ import {types, routDescription, cities, ratingList} from "../utils/const.js";
 
 const generateEvent = (item, id) => {
   const price = getRandomIntegerNumber(10, 50);
+  const month = getRandomIntegerNumber(8, 9);
+  const day = getRandomIntegerNumber(15, 21);
 
-  const startTime = new Date();
+  const startTime = new Date(2020, month, day);
   const startTimeHours = startTime.getHours();
-  const endTime = new Date();
+  const endTime = new Date(2020, month, day);
   endTime.setHours(startTimeHours + getRandomIntegerNumber(1, 8));
   endTime.setMinutes(getRandomIntegerNumber(1, 55));
 
