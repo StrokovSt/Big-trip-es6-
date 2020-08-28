@@ -1,5 +1,7 @@
-import {getRandomIntegerNumber, getRandomArrayItem, getRandomMixedArray} from "../utils/sup-functions.js";
-import {types, routDescription, cities, ratingList} from "../utils/const.js";
+import {getRandomIntegerNumber, getRandomArrayItem} from "../utils/sup-functions.js";
+import {types} from "../utils/const.js";
+import {generateDestination} from "./destination-mock.js";
+import {generateOffers} from "./offers-mock.js";
 
 const generateEvent = (item, id) => {
   const price = getRandomIntegerNumber(10, 50);
@@ -9,11 +11,12 @@ const generateEvent = (item, id) => {
   const startTime = new Date(2020, month, day);
   const startTimeHours = startTime.getHours();
   const endTime = new Date(2020, month, day);
-  endTime.setHours(startTimeHours + getRandomIntegerNumber(1, 8));
+  endTime.setHours(startTimeHours + getRandomIntegerNumber(0, 8));
   endTime.setMinutes(getRandomIntegerNumber(1, 55));
 
-  const destination = getRandomArrayItem(cities);
+  const destination = generateDestination();
   const type = getRandomArrayItem(types);
+  const offers = generateOffers(getRandomIntegerNumber(0, 3));
 
   return {
     price,
@@ -22,7 +25,7 @@ const generateEvent = (item, id) => {
     destination,
     id,
     isFavorite: Math.random() > 0.5,
-    offers: null,
+    offers,
     type
   };
 };

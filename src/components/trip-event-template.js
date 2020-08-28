@@ -2,15 +2,31 @@ import AbstractComponent from "./abstract-component.js";
 import {getTimeFromMins} from "../utils/sup-functions.js";
 import moment from "moment";
 
+const createEventOffer = (offer) => {
+  return (
+    `<li class="event__offer">
+      <span class="event__offer-title">${offer.title}</span>
+      &plus;
+      &euro;&nbsp;<span class="event__offer-price">${offer.price}</span>
+    </li>`
+  );
+};
+
+const createEventOffers = (offers) => {
+  const offersMarkup = offers.map((it) => `${createEventOffer(it)}`).join(`\n`);
+  return offersMarkup;
+};
+
 const createEventTemplate = (event) => {
   const {price, startTime, endTime, destination, id, isFavorite, offers, type} = event;
+  const offersTemplate = createEventOffers(offers);
   return (
     `<li class="trip-events__item">
       <div class="event">
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title">${type} to ${destination}</h3>
+        <h3 class="event__title">${type} to ${destination.name}</h3>
 
         <div class="event__schedule">
           <p class="event__time">
@@ -27,11 +43,7 @@ const createEventTemplate = (event) => {
 
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-          <li class="event__offer">
-            <span class="event__offer-title">Order Uber</span>
-            &plus;
-            &euro;&nbsp;<span class="event__offer-price">20</span>
-          </li>
+          ${offersTemplate}
         </ul>
 
         <button class="event__rollup-btn" type="button">
@@ -45,10 +57,15 @@ const createEventTemplate = (event) => {
 export default class TripEventTemplate extends AbstractComponent {
   constructor(event) {
     super();
+
     this._event = event;
   }
 
   getTemplate() {
     return createEventTemplate(this._event);
+  }
+
+  setEditButtonEventListener(handler) {
+    this.getElement().querySelector(`.event__rollup-btn`).addEventListener(`click`, handler);
   }
 }

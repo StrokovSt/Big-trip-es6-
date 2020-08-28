@@ -11,4 +11,8 @@ export default class TripListTemplate extends AbstractComponent {
   getTemplate() {
     return createTripListTemplate();
   }
+
+  getListComponent() {
+    return this.getElement();
+  }
 }

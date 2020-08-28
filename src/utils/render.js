@@ -1,3 +1,8 @@
+const RenderPosition = {
+  AFTERBEGIN: `afterbegin`,
+  BEFOREEND: `beforeend`
+};
+
 //  --------------------  Функция по созданию DOM элемента
 
 const createElement = (template) => {
@@ -9,20 +14,36 @@ const createElement = (template) => {
 
 //  --------------------  Функция добавления DOM элемента в разметку
 
-const RenderPosition = {
-  AFTERBEGIN: `afterbegin`,
-  BEFOREEND: `beforeend`
-};
-
-const render = (container, element, place) => {
+const render = (container, component, place) => {
   switch (place) {
     case RenderPosition.AFTERBEGIN:
-      container.prepend(element);
+      container.prepend(component.getElement());
       break;
     case RenderPosition.BEFOREEND:
-      container.append(element);
+      container.append(component.getElement());
       break;
   }
 };
 
-export {createElement, RenderPosition, render};
+//  --------------------  Функция замены элементов
+
+const replace = (newComponent, oldComponent) => {
+  const parentElement = oldComponent.getElement().parentElement;
+  const newElement = newComponent.getElement();
+  const oldElement = oldComponent.getElement();
+
+  const isElementsExist = !!(parentElement && newElement && oldElement);
+
+  if (isElementsExist && parentElement.contains(oldElement)) {
+    parentElement.replaceChild(newElement, oldElement);
+  }
+};
+
+//  --------------------  Функция удаления элемента
+
+const remove = (component) => {
+  component.getElement().remove();
+  component.removeElement();
+};
+
+export {RenderPosition, createElement, render, replace, remove};
